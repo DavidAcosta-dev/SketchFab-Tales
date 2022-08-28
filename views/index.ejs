@@ -1,0 +1,19 @@
+<%- include('./partials/header.ejs') %>
+
+<h1>Index</h1>
+
+<ul>
+    <% for(let i = 0; i < stories.length; i++) {
+   
+        let fruitNumber = i + 1
+      %>
+        <li>
+          <a href="/stories/<%= stories[i].id %>"> <%= stories[i].title %> </a>
+         
+         </li>
+      <% } %>
+
+</ul>
+
+
+<%- include('./partials/footer.ejs') %>

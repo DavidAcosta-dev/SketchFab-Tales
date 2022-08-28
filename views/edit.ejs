@@ -1,0 +1,28 @@
+<%- include('./partials/header.ejs') %>
+
+
+<h1>Edit <%= story.title %></h1>
+
+<div class="sketchfab-embed-wrapper"> <iframe frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="640" height="480" src="https://sketchfab.com/models/<%= story.image %>/embed"> </iframe></div>
+
+<form action="/stories/<%= story.id %>?_method=PUT" method="POST">
+    Title: <input type="text" name="title" value="<%= story.title %>">
+    <br>
+
+    Story: <textarea id="storyText" name="storyText" rows="10" cols="50"><%= story.storyText %> </textarea>
+
+    <br>
+    Author: <input type="text" name="author" value="<%= story.author %>">
+
+    <br>
+    <input type="submit" name="submit" value="Submit Changes">
+
+    
+</form>
+
+<form action="/stories/<%= story.id %>?_method=DELETE" method="POST" >
+    <input type="submit" value="DELETE BOOK ⚠️">  
+</form>
+
+
+<%- include('./partials/footer.ejs') %>

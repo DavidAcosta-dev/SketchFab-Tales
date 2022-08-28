@@ -1,0 +1,14 @@
+<%- include('./partials/header.ejs') %>
+
+<% console.log(story) %>
+
+
+<h1><%= story.title %></h1>
+
+<div class="sketchfab-embed-wrapper"> <iframe frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="640" height="480" src="https://sketchfab.com/models/<%= story.image %>/embed"> </iframe></div>
+
+<p><%= story.storyText %></p>
+
+<p><%= story.author %></p>
+
+<%- include('./partials/footer.ejs') %>
