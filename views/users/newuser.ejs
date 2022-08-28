@@ -1,0 +1,27 @@
+<%- include('../partials/header.ejs') %>
+
+<h1>Sign Up</h1>
+
+<form method="POST" action="/signup">
+    <fieldset>
+        <label for="firstName">First Name: </label>
+        <input id="firstName" type="text" name="firstName">
+    </fieldset>
+    <fieldset>
+        <label for="lastName">Last Name: </label>
+        <input id="lastName" type="text" name="lastName">
+    </fieldset>
+    <fieldset>
+        <label for="email">E-mail: </label>
+        <input id="email" type="email" name="email">
+    </fieldset>
+    <fieldset>
+        <label for="password">Password: </label>
+        <input id="password" type="password" name="password">
+    </fieldset>
+
+    <input type="submit" value="submit">
+
+</form>
+
+<%- include('../partials/footer.ejs') %>

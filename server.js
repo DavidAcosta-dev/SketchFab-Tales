@@ -27,6 +27,7 @@ app.use(methodOverride('_method'))
 //INDEX ---------------------> READY
 app.get('/stories', (req, res) => {
     // res.send('Index route showing all stories')
+    console.log('GIVE ME BACK MY GNOME')
     Story.find().then(stories => {
         res.render('index.ejs', { stories })
     }) 
@@ -44,6 +45,18 @@ app.get('/stories/:id', async (req, res) => {
     const story = await Story.findById(req.params.id)
     res.render('show.ejs', { story })
     
+})
+
+//shows user's stories 
+app.get('/stories/user/:id', (req, res, next) => {
+    console.log('getting all stories by user ID')
+
+    Story.find({ author: req.params.id })
+        .then((stories) => {
+            res.render('index.ejs', { stories })
+        })
+
+        
 })
 
 //CREATE -------------------> READY
@@ -99,7 +112,19 @@ app.delete('/stories/:id', (req, res) => {
 //------------------------------------------
 //USER ROUTES
 
-//POST new user
+//INDEX
+app.get('/users', (req, res, next) => {
+    User.find().then(users => {
+        res.render('users/users.ejs', { users })
+    })
+})
+
+//NEW
+app.get('/users/new', (req, res, next) => {
+    res.render('users/newuser.ejs')
+})
+
+//CREATE
 app.post('/signup', (req, res, next) => {
     console.log('Posting New User')
 
@@ -133,26 +158,6 @@ app.post('/signup', (req, res, next) => {
         })
 
 })
-
-//INDEX
-app.get('/users', (req, res, next) => {
-    User.find().then(users => {
-        res.render('users/users.ejs', { users })
-    })
-})
-
-//
-app.get('/stories/user/:id', (req, res, next) => {
-    console.log('getting all stories by user ID')
-
-    Story.find({ author: req.params.id })
-        .then((stories) => {
-            res.render('index.ejs', { stories })
-        })
-
-        
-})
-
 
 //------------------------------------------
 mongoose.connect(DATABASE_URL, () => {
