@@ -9,11 +9,15 @@
       %>
         <li class="indexitems">
           <a href="/stories/<%= stories[i].id %>"> <%= stories[i].title %> </a>
+
          
          </li>
       <% } %>
 
 </ul>
+
+
+<button><a href="/stories/new" >CREATE</a></button>
 
 
 <%- include('./partials/footer.ejs') %>
