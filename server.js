@@ -90,20 +90,48 @@ app.post('/stories', (req, res) => {
 })
 
 //EDIT
-app.get('/stories/:id/edit', async (req, res) => {
-    const story = await Story.findById(req.params.id)
-    res.render('edit.ejs', { story })
+app.get('/stories/:id/edit', (req, res) => {
+
+    const token = req.cookies.access_token
+    const decodedToken = jwt.verify(token, JWT_KEY_SECRET)
+
+    Story.findById(req.params.id)
+        .then((story) => {
+            console.log(story)
+            if(story.author.id === decodedToken.userId) {
+                console.log('edit access aproved')
+                res.render('edit.ejs', { story })
+            } else {
+                console.log('access denied')
+                res.redirect('/stories')
+            }
+        })
     
 })
 
 //UPDATE
 app.put('/stories/:id', (req, res) => {
-     Story.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updatedModel) => {
-        res.redirect('/stories')
-    })
+
+    const token = req.cookies.access_token
+    const decodedToken = jwt.verify(token, JWT_KEY_SECRET)
+
+    Story.findById(req.params.id)
+        .then((story) => {
+            if(story.author.id === decodedToken.userId) {
+                console.log('access granted')
+                const newBody = {title: req.body.title, storyText: req.body.storyText}
+
+                Story.findByIdAndUpdate(req.params.id, {$set: newBody}, {new: true}, (err, updatedModel) => {
+                res.redirect('/stories')
+                })
+            } else {
+                console.log('access denied')
+                res.redirect('/stories')
+            }
+        })
+
+    
 })
-
-
 
 //DELETE
 app.delete('/stories/:id', (req, res) => {
@@ -125,8 +153,8 @@ app.delete('/stories/:id', (req, res) => {
                 res.redirect('/stories')
             }
         })
-
-  
+    
+        
 })
 
 //------------------------------------------
