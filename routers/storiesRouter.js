@@ -1,4 +1,4 @@
-const express = require('express')
+const express = require('express') 
 const router = express.Router()
 
 const mongoose = require('mongoose')
@@ -16,6 +16,7 @@ mongoose.Promise = global.Promise
 
 const { DATABASE_URL, PORT, JWT_KEY_SECRET } = require('../config')
 const { Story } = require('../models/story')
+const checkauth = require('../middleware/checkauth') //check authentication middleware function
 const { 
         getAllStories, 
         sendNewStoryForm, 
@@ -26,7 +27,7 @@ const {
         updateStoryById, 
         deleteStoryById
     } 
-     = require('../controllers/storiesController')
+     = require('../controllers/storiesController')     
 
 
 //INDEX ---------------------> READY 

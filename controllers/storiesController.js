@@ -28,24 +28,26 @@ const getAllStories = (req, res, next) => {
    }) 
 }
 
-//NEW
+//NEW  --AUTHENTICATE!!!!!!!!!!
 const sendNewStoryForm = (req, res, next) => {
+    
+userId = req.userId
 
-if(!req.cookies.access_token) {
+if(!userId) {
     console.log('no cookie found!')
     return res.redirect('/users/login')
 }
-    const token = req.cookies.access_token
-    const decodedToken = jwt.verify(token, JWT_KEY_SECRET)
+    // const token = req.cookies.access_token
+    // const decodedToken = jwt.verify(token, JWT_KEY_SECRET)
 
-    User.findById(decodedToken.userId)
+    User.findById(userId)
         .then((usr) => {
             if(!usr){
-                console.log('access denied')
+                console.log('access denied, user does not exist')
                 res.redirect('/users/login')
             } else {
-                console.log('access granted')
-                res.render('new.ejs')
+                console.log('access granted, you may create a story')
+                res.render('new.ejs', { userId })
 
                 }
             })
@@ -70,7 +72,7 @@ const getStoriesByUserId = (req, res, next) => {
         })
 }
 
-//CREATE
+//CREATE --AUTHENTICATE!!!!!!!!!!
 const createNewStory = (req, res, next) => {
     console.log('potatoes')
     console.log(req.body) //looking at the data that the user sent
@@ -97,7 +99,7 @@ const createNewStory = (req, res, next) => {
     console.log(req.body)
 }
 
-//EDIT
+//EDIT--AUTHENTICATE!!!!!!!!!!
 const sendEditStoryForm = (req, res, next) => {
     const token = req.cookies.access_token
     const decodedToken = jwt.verify(token, JWT_KEY_SECRET)
@@ -115,7 +117,7 @@ const sendEditStoryForm = (req, res, next) => {
         })
 }
 
-//UPDATE
+//UPDATE--AUTHENTICATE!!!!!!!!!!
 const updateStoryById = (req, res, next) => {
     const token = req.cookies.access_token
     const decodedToken = jwt.verify(token, JWT_KEY_SECRET)
@@ -136,7 +138,7 @@ const updateStoryById = (req, res, next) => {
         })
 }
 
-//DELETE
+//DELETE--AUTHENTICATE!!!!!!!!!!
 const deleteStoryById = (req, res, next) => {
     const token = req.cookies.access_token
     const decodedToken = jwt.verify(token, JWT_KEY_SECRET)
