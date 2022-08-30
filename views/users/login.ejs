@@ -1,0 +1,21 @@
+<%- include('../partials/header.ejs') %>
+
+<h1>LOGIN</h1>
+
+<form method="POST" action="/login">
+    <fieldset>
+        <label for="email" >e-mail</label>
+        <input id="email" type="email" name="email">
+    </fieldset>
+
+    <fieldset>
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password">
+    </fieldset>
+
+    <input type="submit" value="Submit">
+
+    
+</form>
+
+<%- include('../partials/footer.ejs') %>

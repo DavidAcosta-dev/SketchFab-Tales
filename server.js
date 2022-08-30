@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const methodOverride = require('method-override')
+const cookieParser = require('cookie-parser')
 
 //authentication
 const { check } = require('express-validator')
@@ -11,7 +12,7 @@ const jwt = require('jsonwebtoken')
 mongoose.Promise = global.Promise
 
 
-const { DATABASE_URL, PORT } = require('./config')
+const { DATABASE_URL, PORT, JWT_KEY_SECRET } = require('./config')
 const { Story } = require('./models/story')
 const { USER, User } = require('./models/user') //imoirting USER model: 
 
@@ -22,6 +23,7 @@ app.use(express.static('public'))
 app.use(express.json()) //looks at any requests that comes in that has json in it and parses it into a JS object that you can access the keys and use like a regular object so that my app can manipulate it.
 app.use(express.urlencoded({extended: true}))
 app.use(methodOverride('_method'))
+app.use(cookieParser())
 
 
 //INDEX ---------------------> READY
@@ -101,12 +103,30 @@ app.put('/stories/:id', (req, res) => {
     })
 })
 
+
+
 //DELETE
 app.delete('/stories/:id', (req, res) => {
-    Story.findByIdAndRemove(req.params.id, (err, data) => {
-        if(err) console.log(err)
-        res.redirect('/stories')
-    })
+    
+    const token = req.cookies.access_token
+    const decodedToken = jwt.verify(token, JWT_KEY_SECRET)
+    
+    Story.findById(req.params.id)
+        .then((story) => {
+            console.log(story)
+            if(story.author.id === decodedToken.userId) {
+                console.log('you got it chief')
+                Story.findByIdAndRemove(req.params.id, (err, data) => {
+                    if(err) console.log(err)
+                    res.redirect(`/stories/user/${decodedToken.userId}`)
+                })
+            } else { 
+                console.log('no can do')
+                res.redirect('/stories')
+            }
+        })
+
+  
 })
 
 //------------------------------------------
@@ -146,18 +166,83 @@ app.post('/signup', (req, res, next) => {
     const { firstName, lastName, email, password } = req.body
 
     //hashing the password with bcrypt
-    bcrypt.hash(password, 12)
+    bcrypt.hash(password, 12) //anything higher than 20 would take days to encrypt and decrypt
         .then(encryptedPw => {
             console.log(`Finished encrypting password: ${encryptedPw}`)
             const newUser = { firstName, lastName, email, password: encryptedPw }
 
             User.create(newUser)
                 .then(usr => {
-                    return res.send(usr)
+                    const token = jwt.sign(
+                        { userId: usr.id, email: usr.email }, //payload
+                        JWT_KEY_SECRET, //server secret
+                        { expiresIn: '1hr' }
+                    )
+                        // const response = { user: usr, token }
+                        // return res.send(response)
+
+                        return res.cookie('access_token', token)
+                            .redirect('/users')
+                        
                 })
         })
 
+})  
+
+//LOGIN - GET
+app.get('/login', (req, res) => {
+    res.render('users/login.ejs')
 })
+
+//LOGIN - POST
+app.post('/login', (req, res, next) => {
+    
+    //normalize email:
+    req.body.email.toLowerCase()
+
+    //lets check if the user exists: 
+    User.findOne({ email: req.body.email })
+        .then((usr) => {
+            console.log(usr)
+            if(!usr){
+                return res.send('email not found')
+            } //end of email check
+
+            //now that the user exists, we'll check if the req.body.password matches the user's password: 
+            bcrypt.compare(req.body.password, usr.password) //bcrypt.compare is a method that returns TRUE or FALSE
+                .then((matched) => {
+                    if(matched === false){
+                        return res.send('invalid password, try again')
+                    } 
+                    const token = jwt.sign(
+                        { userId: usr.id, email: usr.email }, 
+                        JWT_KEY_SECRET, 
+                        { expiresIn: '1hr' }
+                    )
+
+                    return res.cookie('access_token', token)
+                        .redirect('/users')
+                })
+
+        })
+      
+})
+
+//LOGOUT
+app.get('/logout', (req, res) => {
+    const token = req.cookies.access_token
+    console.log(token)
+    if(!token) {
+        return res.send('Failed to logout')
+    }
+    const data = jwt.verify(token, JWT_KEY_SECRET)
+    console.log(data)
+
+    return res.clearCookie('access_token')
+        .redirect('/login')
+})
+
+
 
 //------------------------------------------
 mongoose.connect(DATABASE_URL, () => {

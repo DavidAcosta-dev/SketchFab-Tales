@@ -1,7 +1,8 @@
 {
     "env": {
         "DB_USER": "Lmakoske", 
-        "DB_PASSWORD": "WhenYouWishUponAStar14483"
+        "DB_PASSWORD": "WhenYouWishUponAStar14483", 
+        "JWT_KEY_SECRET": "holy_rain_server_secret"
     }
 }
 

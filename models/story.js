@@ -22,5 +22,5 @@ storySchema.pre('find', function (next) {
 const Story = mongoose.model('Story', storySchema, 'stories')
 
 module.exports = { Story }
-
+ 
 
