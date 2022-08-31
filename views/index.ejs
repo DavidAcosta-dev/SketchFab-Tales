@@ -2,22 +2,22 @@
 
 <h1><%= !collectionAuthor ? "All Stories" : `${collectionAuthor}'s Collection` %></h1>
 
-<ul>
+<ul class="storiesList">
     <% for(let i = 0; i < stories.length; i++) {
    
         let fruitNumber = i + 1
       %>
         <li class="indexitems">
-          <a href="/stories/<%= stories[i].id %>"> <%= stories[i].title %> </a>
+          <a class="indexlink" href="/stories/<%= stories[i].id %>"> 📖 <%=  stories[i].title %> </a>
 
          
          </li>
       <% } %>
-
+         <li class="indexitems"><button id="createButton"><a href="/stories/new" >CREATE</a></button></li>
 </ul>
 
 
-<button><a href="/stories/new" >CREATE</a></button>
+
 
 
 <%- include('./partials/footer.ejs') %>

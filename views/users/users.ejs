@@ -4,13 +4,13 @@
 
 <% console.log(users) %>
 
-<ul>
+<ul class="usersIndex">
     <% for(let i = 0; i < users.length; i++) {
         let userNumber = i + 1
         %>
 
     <li>
-        <a href="/stories/user/<%= users[i].id %>"> <%= users[i].firstName %> <%= users[i].lastName %> </a>
+        <a class="usersIndexLink" href="/stories/user/<%= users[i].id %>"> <%= users[i].firstName %> <%= users[i].lastName %> </a>
         
     </li>   
 

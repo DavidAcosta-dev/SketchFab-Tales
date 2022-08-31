@@ -1,34 +1,49 @@
 
 *{
-    /* padding: 0;
-    margin: 0; */
+    padding: 0;
+    margin: 0;
     text-decoration: none;
     list-style: none;
     box-sizing: border-box;
+
   }
   body{
      /* background-color: violet; */
-     font-family: 'Mouse Memoirs', sans-serif;
-     font-family: 'Rubik Marker Hatch', cursive;
+     
+     font-family: 'Roboto', sans-serif;
+     font-weight: bold;
+     background: URL('https://i.ibb.co/4NVpPmt/watercolor-background-87374-57.webp');
+     
+
   }
 
   nav {
-    background: #d45eaf;
-    height: 80px;
+    background: #f0a6ca9c;
+    /* height: 80px; */
     width: 100%;
+    text-align: right;
+
   }
 
   label.logo {
     color: white;
     font-size: 35px;
-    line-height: 80px;
-    padding: 0 100px;
+    /* line-height: 80px; */
+    /* padding: 0 100px; */
     font-weight: bold;
+
+    position: absolute;
+    top: 22px;
+    left: 40px;
+    font-family: 'Rubik Marker Hatch', cursive;
   }
 
   nav ul {
-    float: right;
+    /* float: right; */
     margin-right: 20px;
+    display: inline-block;
+
+
   }
   nav ul li{
     display: inline-block;
@@ -70,13 +85,7 @@
 
   /* ---------------------------------------------turnJS */
 
-  html,
-  body {
-    background-color: #efefef;
-    height: 100%;
-    margin: 0;
-    overflow: hidden;
-  }
+ 
   
   .wrapper {
     align-items: center;
@@ -166,7 +175,7 @@
   
   /* ---------------------------------------------turnJS */
 
-  @media (max-width: 952px) {
+  /* @media (max-width: 952px) {
     label.logo{
       font-size: 30px;
       padding-left: 50px;
@@ -174,8 +183,8 @@
     nav ul li a{
       font-size: 16px;
     }
-  }
-
+  } */
+/* 
   @media (max-width: 858px) {
     .checkbtn{
       display: block;
@@ -205,7 +214,7 @@
     #check:checked ~ ul{
       left: 0;
     }
-  }
+  } */
   section{
     background: url(bg1.jpg) no-repeat;
     background-size: cover;
@@ -214,10 +223,43 @@
 
   h1 {
     text-align: center;
+    margin-top: 50px;
+    font-size: 70px;
+    color: #673ab763;
+    border: solid 7px #673ab763;
+    width: 500px;
+    border-radius: 15px;
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+
+  .storiesList {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
   }
 
   .indexitems {
     text-align: center;
+    margin-bottom: 10px;
+    background: #acd4e6;
+    border-radius: 10px;
+    height: 224px;
+    width: 256px;
+}
+
+.indexlink {
+  font-size: 40px;
+  color: white;
+
+}
+  
+
+  #createButton {
+    margin-top: 30px;
 
   }
 
@@ -229,16 +271,54 @@
     text-align: center;
   }
 
+.login { 
+  width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.signup {
+  width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.usersIndex {
+  padding: 5px;
+    /* margin-left: 30px; */
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    font-size: 30px;
+    border: solid 7px #673ab763;
+    border-radius: 15px;
+    text-align: center;
+}
 
 
+.usersIndexLink {
+  color: #8bc34a;
 
+}
 
+.createh1 {
+  margin-bottom: 20px;
 
+}
 
+.createStoryForm {
+  width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid 7px #673ab763;
 
+}
 
-
-
+.createStoryFieldset {
+  border: solid 7px #673ab763;
+  margin: 5px;
+}
 
 
 

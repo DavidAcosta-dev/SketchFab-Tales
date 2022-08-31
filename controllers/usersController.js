@@ -76,7 +76,7 @@ const createNewUser = (req, res, next) => {
                     const token = jwt.sign(
                         { userId: usr.id, email: usr.email }, //payload
                         JWT_KEY_SECRET, //server secret
-                        { expiresIn: '1hr' }
+                        // { expiresIn: '1hr' }
                     )
                         // const response = { user: usr, token }
                         // return res.send(response)
@@ -122,7 +122,7 @@ const login = (req, res, next) => {
                       const token = jwt.sign(
                           { userId: usr.id, email: usr.email }, 
                           JWT_KEY_SECRET, 
-                          { expiresIn: '1hr' }
+                        //   { expiresIn: '1hr' }
                       )
   
                       return res.cookie('access_token', token)
