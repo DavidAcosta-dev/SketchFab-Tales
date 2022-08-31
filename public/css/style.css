@@ -1,7 +1,7 @@
 
 *{
-    padding: 0;
-    margin: 0;
+    /* padding: 0;
+    margin: 0; */
     text-decoration: none;
     list-style: none;
     box-sizing: border-box;
@@ -67,6 +67,104 @@
   .hidden {
     visibility: hidden;
   }
+
+  /* ---------------------------------------------turnJS */
+
+  html,
+  body {
+    background-color: #efefef;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+  }
+  
+  .wrapper {
+    align-items: center;
+    display: flex;
+    height: 90%;
+    justify-content: center;
+    margin: 5%;
+    width: 90%;
+  }
+  
+  .aspect {
+    padding-bottom: 70%;
+    position: relative;
+    width: 100%;
+  }
+  
+  .aspect-inner {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  
+  .flipbook {
+    height: 100%;
+    transition: margin-left 0.25s ease-out;
+    width: 100%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  .flipbook .page {
+      /* border: solid 1px black; */
+    /* height: 100%; */
+    /* width: 100%; */
+  }
+  
+  .flipbook .page img {
+    max-width: 100%;
+    height: 30%;
+  }
+  
+  #flipbook .hard{
+    background:#ccc !important;
+    color:#333;
+    -webkit-box-shadow:inset 0 0 5px #666;
+    -moz-box-shadow:inset 0 0 5px #666;
+    -o-box-shadow:inset 0 0 5px #666;
+    -ms-box-shadow:inset 0 0 5px #666;
+    box-shadow:inset 0 0 5px #666;
+    font-weight:bold;
+  }
+  
+  #flipbook .odd{
+  background:-webkit-gradient(linear, right top, left top, color-stop(0.95, #FFF), color-stop(1, #DADADA));
+  background-image:-webkit-linear-gradient(right, #FFF 95%, #C4C4C4 100%);
+     background-image:-moz-linear-gradient(right, #FFF 95%, #C4C4C4 100%);
+    background-image:-ms-linear-gradient(right, #FFF 95%, #C4C4C4 100%);
+    background-image:-o-linear-gradient(right, #FFF 95%, #C4C4C4 100%);
+    background-image:linear-gradient(right, #FFF 95%, #C4C4C4 100%); 
+     -webkit-box-shadow:inset 0 0 5px #666;
+    -moz-box-shadow:inset 0 0 5px #666;
+    -o-box-shadow:inset 0 0 5px #666;
+    -ms-box-shadow:inset 0 0 5px #666;
+    box-shadow:inset 0 0 5px #666; 
+    
+  }
+  
+  #flipbook .even{
+     background:-webkit-gradient(linear, left top, right top, color-stop(0.95, #fff), color-stop(1, #dadada)); 
+     background-image:-webkit-linear-gradient(left, #fff 95%, #dadada 100%); 
+     background-image:-moz-linear-gradient(left, #fff 95%, #dadada 100%);
+    background-image:-ms-linear-gradient(left, #fff 95%, #dadada 100%);
+    background-image:-o-linear-gradient(left, #fff 95%, #dadada 100%);
+    background-image:linear-gradient(left, #fff 95%, #dadada 100%); 
+     -webkit-box-shadow:inset 0 0 5px #666;
+    -moz-box-shadow:inset 0 0 5px #666;
+    -o-box-shadow:inset 0 0 5px #666;
+    -ms-box-shadow:inset 0 0 5px #666;
+    box-shadow:inset 0 0 5px #666; 
+  }
+  
+  /* ---------------------------------------------turnJS */
 
   @media (max-width: 952px) {
     label.logo{

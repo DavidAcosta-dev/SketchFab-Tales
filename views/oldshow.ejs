@@ -1,0 +1,39 @@
+<%- include('./partials/header.ejs') %>
+
+<% let hiddenClass = '' %>
+<% userId === story.author.id? hiddenClass = '': hiddenClass ='hidden' %>  
+
+<h1><%= story.title %></h1>
+
+<div class="sketchfab-embed-wrapper"> <iframe frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="640" height="480" src="https://sketchfab.com/models/<%= story.image %>/embed"> </iframe></div>
+
+<p><%= story.storyText %></p>
+
+<p>By <a href="/stories/user/<%= story.author.id %>"><%= story.author.firstName %></a></p>
+
+<form class="<%= hiddenClass %>" action="/stories/<%= story.id %>?_method=DELETE" method="POST">
+    <input type="submit" value="DELETE">
+</form>
+
+<a class="<%= hiddenClass %>" href="/stories/<%= story.id %>/edit">EDIT</a>
+
+
+<script>
+    let flipbookEL = document.getElementById('flipbook');
+    console.log("LINKED")
+    
+    // window.addEventListener('resize', function (e) {
+    //     flipbookEL.style.width = '';
+    //   flipbookEL.style.height = '';
+    //   $(flipbookEL).turn('size', flipbookEL.clientWidth, flipbookEL.clientHeight);
+    // });
+    
+    $(flipbookEL).turn({
+        autoCenter: true
+    });
+    
+</script>
+
+
+</body>
+</html>  

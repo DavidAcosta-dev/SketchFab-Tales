@@ -3,18 +3,66 @@
 <% let hiddenClass = '' %>
 <% userId === story.author.id? hiddenClass = '': hiddenClass ='hidden' %>  
 
-<h1><%= story.title %></h1>
-
-<div class="sketchfab-embed-wrapper"> <iframe frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="640" height="480" src="https://sketchfab.com/models/<%= story.image %>/embed"> </iframe></div>
-
-<p><%= story.storyText %></p>
-
-<p>By <a href="/stories/user/<%= story.author.id %>"><%= story.author.firstName %></a></p>
 
 <form class="<%= hiddenClass %>" action="/stories/<%= story.id %>?_method=DELETE" method="POST">
     <input type="submit" value="DELETE">
 </form>
 
-<a class="<%= hiddenClass %>" href="/stories/<%= story.id %>/edit">EDIT</a>
+<button class="<%= hiddenClass %>" type="button"><a href="/stories/<%= story.id %>/edit">EDIT</a></button>
 
-<%- include('./partials/footer.ejs') %>   
+<div class="wrapper">
+    <div class="aspect">
+      <div class="aspect-inner">
+        <div class="flipbook" id="flipbook">
+
+        <div class="page hard">
+            <h1><%= story.title %></h1> 
+            <img src="https://raw.github.com/blasten/turn.js/master/demos/magazine/pages/01.jpg" draggable="false" alt="" />
+            <p>By <a href="/stories/user/<%= story.author.id %>"><%= story.author.firstName %></a></p>
+        </div>
+
+          <div class="page hard">
+            <iframe autoplay width="640" height="360" src="https://sketchfab.com/models/<%= story.image %>/embed?autostart=1" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" onmousewheel=""></iframe>
+            
+        </div>
+
+        
+
+        <div class="page">
+            <p><%= story.storyText %></p>
+        </div>
+
+        <div class="page">
+            <p><%= story.storyText %></p>
+        </div>
+
+        
+
+        <div class="page hard"><img src="https://raw.github.com/blasten/turn.js/master/demos/magazine/pages/06.jpg" draggable="false" alt="" /></div>
+
+        <div class="page hard">
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+    let flipbookEL = document.getElementById('flipbook');
+    console.log("LINKED")
+    
+    window.addEventListener('resize', function (e) {
+        flipbookEL.style.width = '';
+      flipbookEL.style.height = '';
+      $(flipbookEL).turn('size', flipbookEL.clientWidth, flipbookEL.clientHeight);
+    });
+    
+    $(flipbookEL).turn({
+        autoCenter: true
+    });
+    
+</script>
+
+
+</body>
+</html>  
