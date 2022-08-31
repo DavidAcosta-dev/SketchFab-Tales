@@ -20,14 +20,27 @@ const { User } = require('../models/user') //imoirting USER model:
 
 //INDEX 
 const getAllUsers = (req, res, next) => {
+
+    let isLoggedIn = false
+
     User.find().then(users => {
-        res.render('users/users.ejs', { users })
+
+        if(req.cookies.access_token) {
+            isLoggedIn = true
+        } 
+        res.render('users/users.ejs', { users, isLoggedIn })
     })
 }
 
 //NEW
 const sendNewUserForm = (req, res, next) => {
-    res.render('users/newuser.ejs')
+
+    let isLoggedIn = false
+
+    if(req.cookies.access_token) {
+        isLoggedIn = true
+    } 
+    res.render('users/newuser.ejs', {isLoggedIn})
 
 }
 
@@ -78,7 +91,13 @@ const createNewUser = (req, res, next) => {
 
 //LOGIN - GET
 const sendLoginForm = (req, res, next) => {
-    res.render('users/login.ejs')
+
+    let isLoggedIn = false
+
+    if(req.cookies.access_token) {
+        isLoggedIn = true
+    } 
+    res.render('users/login.ejs', {isLoggedIn})
 
 }
 

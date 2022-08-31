@@ -22,16 +22,24 @@ const { User } = require('../models/user') //imoirting USER model:
 //INDEX 
 const getAllStories = (req, res, next) => {
      // res.send('Index route showing all stories')
-   console.log('GIVE ME BACK MY GNOME')
-   Story.find().then( (stories) => {
-       res.render('index.ejs', { stories })
+    let isLoggedIn = false
+
+    Story.find().then( (stories) => { 
+        if(req.cookies.access_token) {
+            isLoggedIn = true
+        } 
+        res.render('index.ejs', { stories, isLoggedIn })
+
    }) 
 }
 
 //NEW  --AUTHENTICATE!!!!!!!!!!
 const sendNewStoryForm = (req, res, next) => {
+
+let isLoggedIn = false
     
-userId = req.userId
+console.log(req.userId)
+const userId = req.userId
 
 if(!userId) {
     console.log('no cookie found!')
@@ -46,8 +54,11 @@ if(!userId) {
                 console.log('access denied, user does not exist')
                 res.redirect('/users/login')
             } else {
+                if(req.cookies.access_token) {
+                    isLoggedIn = true
+                } 
                 console.log('access granted, you may create a story')
-                res.render('new.ejs', { userId })
+                res.render('new.ejs', { userId, isLoggedIn })
 
                 }
             })
@@ -58,24 +69,35 @@ if(!userId) {
 //SHOW 
 const getStoryById = async (req, res, next) => {
      // res.send(req.params.id)
+     let isLoggedIn = false
+
+
      const story = await Story.findById(req.params.id)
-     res.render('show.ejs', { story })
+     if(req.cookies.access_token) {
+        isLoggedIn = true
+    } 
+     res.render('show.ejs', { story, isLoggedIn })
 }
 
 //shows user's stories 
 const getStoriesByUserId = (req, res, next) => {
+    let isLoggedIn = false
+
     console.log('getting all stories by user ID')
 
     Story.find({ author: req.params.id })
         .then((stories) => {
-            res.render('index.ejs', { stories })
+
+            if(req.cookies.access_token) {
+                isLoggedIn = true
+            } 
+            res.render('index.ejs', { stories, isLoggedIn })
         })
 }
 
 //CREATE --AUTHENTICATE!!!!!!!!!!
 const createNewStory = (req, res, next) => {
-    console.log('potatoes')
-    console.log(req.body) //looking at the data that the user sent
+    
     const requiredFields = ['title', 'storyText', 'author']
     
     for (let i = 0; i < requiredFields.length; i++) {
@@ -96,20 +118,24 @@ const createNewStory = (req, res, next) => {
         }
     })
 
-    console.log(req.body)
 }
 
 //EDIT--AUTHENTICATE!!!!!!!!!!
 const sendEditStoryForm = (req, res, next) => {
-    const token = req.cookies.access_token
-    const decodedToken = jwt.verify(token, JWT_KEY_SECRET)
+
+    let isLoggedIn = false
+
+    const userId = req.userId
 
     Story.findById(req.params.id)
         .then((story) => {
-            console.log(story)
-            if(story.author.id === decodedToken.userId) {
+            if(story.author.id === userId) {
                 console.log('edit access aproved')
-                res.render('edit.ejs', { story })
+
+                if(req.cookies.access_token) {
+                    isLoggedIn = true
+                } 
+                res.render('edit.ejs', { story, isLoggedIn })
             } else {
                 console.log('access denied')
                 res.redirect('/stories')
@@ -119,16 +145,16 @@ const sendEditStoryForm = (req, res, next) => {
 
 //UPDATE--AUTHENTICATE!!!!!!!!!!
 const updateStoryById = (req, res, next) => {
-    const token = req.cookies.access_token
-    const decodedToken = jwt.verify(token, JWT_KEY_SECRET)
+   
+    const userId = req.userId
 
     Story.findById(req.params.id)
         .then((story) => {
-            if(story.author.id === decodedToken.userId) {
+            if(story.author.id === userId) {
                 console.log('access granted')
                 const newBody = {title: req.body.title, storyText: req.body.storyText}
 
-                Story.findByIdAndUpdate(req.params.id, {$set: newBody}, {new: true}, (err, updatedModel) => {
+                Story.findByIdAndUpdate(story.id, {$set: newBody}, {new: true}, (err, updatedModel) => {
                 res.redirect('/stories')
                 })
             } else {
@@ -140,17 +166,16 @@ const updateStoryById = (req, res, next) => {
 
 //DELETE--AUTHENTICATE!!!!!!!!!!
 const deleteStoryById = (req, res, next) => {
-    const token = req.cookies.access_token
-    const decodedToken = jwt.verify(token, JWT_KEY_SECRET)
+  
+    const userId = req.userId
     
     Story.findById(req.params.id)
         .then((story) => {
-            console.log(story)
-            if(story.author.id === decodedToken.userId) {
+            if(story.author.id === userId) {
                 console.log('you got it chief')
-                Story.findByIdAndRemove(req.params.id, (err, data) => {
+                Story.findByIdAndRemove(story.id, (err, data) => {
                     if(err) console.log(err)
-                    res.redirect(`/stories/user/${decodedToken.userId}`)
+                    res.redirect(`/stories/user/${userId}`)
                 })
             } else { 
                 console.log('no can do')

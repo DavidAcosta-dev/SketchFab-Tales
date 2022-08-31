@@ -20,6 +20,12 @@
 </head>
 <body>  
 
+  <% let linkText %> 
+  <% let pathText %> 
+
+  <% isLoggedIn === true? linkText = 'Logout': linkText = 'Login/Sign Up' %> 
+  <% isLoggedIn === true? pathText = 'logout': pathText = 'login' %> 
+
 <nav>
 
         <nav>
@@ -30,13 +36,12 @@
           <label class="logo">Tell-A-Tale</label>
           <ul>
             <li><a class="active" href="http://localhost:8080/stories">Home</a></li>
-            <li><a href="http://localhost:8080/users/login">Login/Sign Up</a></li>
+            <li><a href="http://localhost:8080/users/<%= pathText %>"><%= `${linkText}` %></a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Contact</a></li>
             <li><a href="#">Feedback</a></li>
           </ul>
         </nav>
-
 
 
 </nav> 

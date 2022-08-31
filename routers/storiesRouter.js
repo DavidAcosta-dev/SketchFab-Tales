@@ -16,7 +16,7 @@ mongoose.Promise = global.Promise
 
 const { DATABASE_URL, PORT, JWT_KEY_SECRET } = require('../config')
 const { Story } = require('../models/story')
-const checkauth = require('../middleware/checkauth') //check authentication middleware function
+const {checkauth} = require('../middleware/checkauth') //check authentication middleware function
 const { 
         getAllStories, 
         sendNewStoryForm, 
@@ -28,19 +28,28 @@ const {
         deleteStoryById
     } 
      = require('../controllers/storiesController')     
+const { application } = require('express')
+
+
+     
+//==============ROUTES============================
 
 
 //INDEX ---------------------> READY 
 router.get('/', getAllStories)
 
 //NEW ----------------------> READY
-router.get('/new', sendNewStoryForm)
+router.get('/new', checkauth, sendNewStoryForm) 
 
 //SHOW   -----------------> READY
 router.get('/:id',  getStoryById) 
 
 //shows user's stories 
-router.get('/user/:id', getStoriesByUserId) 
+router.get('/user/:id', getStoriesByUserId)
+
+
+router.use(checkauth) //MIDDLEWARE <--------------------------------
+
 
 //CREATE - AUTHENTICATION  -------------------> READY
 router.post('/', createNewStory)

@@ -9,12 +9,12 @@ const checkauth = (req, res, next) => {
 
         if(!token) {
             console.log('no token found, authentication failed')
-            return next({error: 'no token found, authentication failed'})
+            return res.redirect('/users/login')
         }   
         
             const decodedToken = jwt.verify(token, JWT_KEY_SECRET)
 
-            userId = decodedToken.userId 
+            req.userId = decodedToken.userId 
             next()
 
     } catch(error) {
