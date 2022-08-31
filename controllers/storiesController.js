@@ -23,12 +23,12 @@ const { User } = require('../models/user') //imoirting USER model:
 const getAllStories = (req, res, next) => {
      // res.send('Index route showing all stories')
     let isLoggedIn = false
-
+    let collectionAuthor = null;
     Story.find().then( (stories) => { 
         if(req.cookies.access_token) {
             isLoggedIn = true
         } 
-        res.render('index.ejs', { stories, isLoggedIn })
+        res.render('index.ejs', { stories, isLoggedIn, collectionAuthor})
 
    }) 
 }
@@ -69,29 +69,33 @@ if(!userId) {
 //SHOW 
 const getStoryById = async (req, res, next) => {
      // res.send(req.params.id)
-     let isLoggedIn = false
-
+    let isLoggedIn = false
+    let userId = null
 
      const story = await Story.findById(req.params.id)
      if(req.cookies.access_token) {
         isLoggedIn = true
+
+        const decodedToken = jwt.verify(req.cookies.access_token, JWT_KEY_SECRET)
+        userId = decodedToken.userId
     } 
-     res.render('show.ejs', { story, isLoggedIn })
+     res.render('show.ejs', { story, isLoggedIn, userId })
 }
 
 //shows user's stories 
 const getStoriesByUserId = (req, res, next) => {
-    let isLoggedIn = false
+    let isLoggedIn = false;
+    let collectionAuthor = "All Stories";
 
     console.log('getting all stories by user ID')
 
     Story.find({ author: req.params.id })
         .then((stories) => {
-
+            stories.length >= 1 ? collectionAuthor = stories[0].author.firstName : "This author has no stories.. :O"
             if(req.cookies.access_token) {
                 isLoggedIn = true
             } 
-            res.render('index.ejs', { stories, isLoggedIn })
+            res.render('index.ejs', { stories, isLoggedIn, collectionAuthor })
         })
 }
 

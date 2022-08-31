@@ -64,6 +64,10 @@
     display: none;
   }
 
+  .hidden {
+    visibility: hidden;
+  }
+
   @media (max-width: 952px) {
     label.logo{
       font-size: 30px;
@@ -126,7 +130,6 @@
   form {
     text-align: center;
   }
-
 
 
 

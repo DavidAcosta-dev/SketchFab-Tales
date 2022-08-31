@@ -1,6 +1,6 @@
 <%- include('./partials/header.ejs') %>
 
-<h1>Index</h1>
+<h1><%= !collectionAuthor ? "All Stories" : `${collectionAuthor}'s Collection` %></h1>
 
 <ul>
     <% for(let i = 0; i < stories.length; i++) {

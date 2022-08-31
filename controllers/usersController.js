@@ -81,8 +81,7 @@ const createNewUser = (req, res, next) => {
                         // const response = { user: usr, token }
                         // return res.send(response)
 
-                        return res.cookie('access_token', token)
-                            .redirect('/users')
+                        return res.cookie('access_token', token).redirect('/users')
                         
                 })
         })
