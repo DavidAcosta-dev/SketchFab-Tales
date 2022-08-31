@@ -16,9 +16,11 @@
         <div class="flipbook" id="flipbook">
 
         <div class="page hard">
-            <h1><%= story.title %></h1> 
-            <img src="https://raw.github.com/blasten/turn.js/master/demos/magazine/pages/01.jpg" draggable="false" alt="" />
-            <p>By <a href="/stories/user/<%= story.author.id %>"><%= story.author.firstName %></a></p>
+          <div class="bookTitleContainer">
+            <h1 class="authorH1Cover"><%= story.title %></h1> 
+            <p class="authorCoverP">By <a href="/stories/user/<%= story.author.id %>"><%= story.author.firstName %></a></p>
+          </div>
+            
         </div>
 
           <div class="page hard">
@@ -29,7 +31,7 @@
         
 
         <div class="page">
-            <p><%= story.storyText %></p>
+            <p class="storyTextP"><%= story.storyText %></p>
         </div>
 
         <div class="page">
