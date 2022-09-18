@@ -10,9 +10,9 @@
 
 <button class="<%= hiddenClass %>" type="button"><a href="/stories/<%= story.id %>/edit">EDIT</a></button>
 
-<div class="wrapper">
-    <div class="aspect">
-      <div class="aspect-inner">
+
+<div class="flipbook-viewport">
+	<div class="container">
         <div class="flipbook" id="flipbook">
 
         <div class="page hard">
@@ -24,7 +24,7 @@
         </div>
 
           <div class="page hard">
-            <iframe autoplay width="640" height="360" src="https://sketchfab.com/models/<%= story.image %>/embed?autostart=1" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" onmousewheel=""></iframe>
+            <iframe autoplay width="640" height="360" src="https://sketchfab.com/models/<%= story.image %>/embed?autostart=1&autospin=0.1" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" onmousewheel=""></iframe>
             
         </div>
 
@@ -48,7 +48,7 @@
         </div>
       </div>
     </div>
-  </div>
+  
 <script>
     let flipbookEL = document.getElementById('flipbook');
     console.log("LINKED")
@@ -60,7 +60,23 @@
     // });
     
     $(flipbookEL).turn({
-        autoCenter: true
+      width:922,
+			
+			// Height
+
+			height:600,
+
+			// Elevation
+
+			elevation: 50,
+			
+			// Enable gradients
+
+			gradients: true,
+			
+			// Auto center this flipbook
+
+			autoCenter: true
     });
     
 </script>
