@@ -1,3 +1,21 @@
+@font-face {
+  font-family: 'floral_capitalsregular';
+  src: url('./floralcapitals-webfont.woff2') format('woff2'),
+       url('./floralcapitals-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'defloreregular';
+  src: url('./deflore-webfont.woff2') format('woff2'),
+       url('./deflore-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
 
 *{
     padding: 0;
@@ -5,6 +23,7 @@
     text-decoration: none;
     list-style: none;
     box-sizing: border-box;
+    
 
   }
   body{
@@ -13,16 +32,20 @@
      font-family: 'Roboto', sans-serif;
      font-weight: bold;
      background: URL('https://i.ibb.co/4NVpPmt/watercolor-background-87374-57.webp');
-     
-
   }
 
+  main h1 {
+    font-family: 'defloreregular';
+    font-weight: 500;
+    color: #000000;
+    background-color: #ffffffa1;
+  }
   nav {
     background: #f0a6ca9c;
     /* height: 80px; */
     width: 100%;
     text-align: right;
-
+    
   }
 
   label.logo {
@@ -30,12 +53,12 @@
     font-size: 35px;
     /* line-height: 80px; */
     /* padding: 0 100px; */
-    font-weight: bold;
-
+    /* font-weight: bold; */
+    font-weight: normal;
     position: absolute;
     top: 22px;
     left: 40px;
-    font-family: 'Rubik Marker Hatch', cursive;
+    font-family: 'defloreregular';
   }
 
   nav ul {
@@ -223,6 +246,14 @@
   background: url(https://i.ibb.co/NsDQCbZ/kindpng-46959.png),url(https://i.ibb.co/Ws2XSf6/2022-08-31-0no-Kleki.png);
   background-repeat: no-repeat;
   background-size: contain;
+  position: relative;
+}
+
+.quill {
+  position: absolute;
+  left: 185px;
+  top: -48px;
+  width: 40%;
 }
 
 .indexlink {
@@ -320,9 +351,12 @@
 }
 
 .authorH1Cover {
-  color: #2a2a2a;
+  color: #2eff3e;
   border: none;
   width: 85%;
+  font-weight: normal;
+  font-family: 'floral_capitalsregular';
+  background-color: transparent;
 }
 
 iframe {
@@ -335,6 +369,12 @@ iframe {
   margin-left: 54px;
   margin-right: 54px;
   margin-top: 74px;
+}
+
+.storyTextP::first-letter {
+  font-family: 'floral_capitalsregular';
+  font-size: 104px;
+    font-weight: normal;
 }
 
 /* Basic sample ---------------------------------------------------------------------------------------------------------*/
