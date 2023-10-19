@@ -1,24 +1,23 @@
 <%- include('./partials/header.ejs') %>
 
-<h1><%= !collectionAuthor ? "ALL STORIES" : `${collectionAuthor}'s Collection` %></h1>
-
+<h1>
+  <%= !collectionAuthor ? "ALL STORIES" : `${collectionAuthor}'s Collection` %>
+</h1>
+<img href="https://i.ibb.co/vcZKkWt/tgif-030.gif" />
 <ul class="storiesList">
-  <li class="indexitems createButtonBook"><img class="quill" src="./images/quill.png" /><button id="createButton"><a href="/stories/new" >CREATE</a></button></li>
+  <li class="indexitems createButtonBook">
+    <img class="quill" src="./images/quill.png" /><button id="createButton">
+      <a href="/stories/new">CREATE</a>
+    </button>
+  </li>
 
-    <% for(let i = 0; i < stories.length; i++) {
-   
-        let fruitNumber = i + 1
-      %>
-        <li class="indexitems">
-          <a class="indexlink" href="/stories/<%= stories[i].id %>"> 📖 <%=  stories[i].title %> </a>
-
-         
-         </li>
-      <% } %>
+  <% for(let i = 0; i < stories.length; i++) { let fruitNumber = i + 1 %>
+  <li class="indexitems">
+    <a class="indexlink" href="/stories/<%= stories[i].id %>">
+      📖 <%= stories[i].title %>
+    </a>
+  </li>
+  <% } %>
 </ul>
-
-
-
-
 
 <%- include('./partials/footer.ejs') %>

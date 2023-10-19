@@ -106,14 +106,25 @@ const createNewStory = (req, res, next) => {
     }
   }
 
-  Story.create(req.body, (err, createdStory) => {
+  Story.create(req.body).then((createdStory, err) => {
     if (err) {
+      console.log("AHHHHHHHHHHHHHHHHH");
       console.log(err);
       res.send(err);
     } else {
       res.redirect("/stories");
     }
   });
+
+  //Old way no longer accepted by mongoose
+  // Story.create(req.body, (err, createdStory) => {
+  //   if (err) {
+  //     console.log(err);
+  //     res.send(err);
+  //   } else {
+  //     res.redirect("/stories");
+  //   }
+  // });
 };
 
 //EDIT--AUTHENTICATE!!!!!!!!!!
@@ -146,11 +157,9 @@ const updateStoryById = (req, res, next) => {
       console.log("access granted");
       const newBody = { title: req.body.title, storyText: req.body.storyText };
 
-      Story.findByIdAndUpdate(
-        story.id,
-        { $set: newBody },
-        { new: true },
+      Story.findByIdAndUpdate(story.id, { $set: newBody }, { new: true }).then(
         (err, updatedModel) => {
+          console.log(updatedModel);
           res.redirect("/stories");
         }
       );
